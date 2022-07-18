@@ -55,7 +55,7 @@ class Project:
         return 0
 
     def notify(self, email):
-        if email != ''
+        if email != '':
             cmd = 'echo Succeed used %d s | s-nail  -s "%s Build Succeed" %s' %(self.compile_time, self.name, email)
             subprocess.run(cmd, shell=True)
         return 0
