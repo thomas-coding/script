@@ -27,7 +27,7 @@ class Project:
         if prebuild != '':
             cmd = 'cd %s/build && ./build.sh %s' %(self.code_path, prebuild)
             subprocess.run(cmd, shell=True)
-        cmd = 'cd %s/build && ./build.sh %s %s' %(self.code_path, self.name, module)
+        cmd = 'cd %s/build && ./build.sh %s %s > build.log' %(self.code_path, self.name, module)
         subprocess.run(cmd, shell=True)
         end_time = time.time()
         self.compile_time = end_time- start_time
@@ -55,8 +55,9 @@ class Project:
         return 0
 
     def notify(self, email):
-        cmd = 'echo Succeed used %d s | s-nail  -s "%s Build Succeed" %s' %(self.compile_time, self.name, email)
-        subprocess.run(cmd, shell=True)
+        if email != ''
+            cmd = 'echo Succeed used %d s | s-nail  -s "%s Build Succeed" %s' %(self.compile_time, self.name, email)
+            subprocess.run(cmd, shell=True)
         return 0
 
     def release(self, release_path = default_release_path):
@@ -68,6 +69,10 @@ class Project:
             cmd = 'rm -rf %s'  %(release_dir)
             subprocess.run(cmd, shell=True)
         cmd = 'mkdir -p %s'  %(release_dir)
+        subprocess.run(cmd, shell=True)
+
+        # Gather build log
+        cmd = 'cd %s/ && mv build.log %s'  %(self.code_path, release_dir)
         subprocess.run(cmd, shell=True)
 
         # Gather snapshot
