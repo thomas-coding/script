@@ -30,3 +30,5 @@ if __name__ == '__main__':
         print('aliyun server')
     else:
         print('local compute')
+        project_build('alexandrite_daily_local')
+        project_build('alius_daily_local')
