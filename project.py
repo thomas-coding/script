@@ -8,7 +8,7 @@ import subprocess
 import os
 import time
 
-current_dir = os.path.abspath('.')
+current_dir = os.path.split(os.path.realpath(__file__))[0]
 
 class Project:
     '''
@@ -27,7 +27,8 @@ class Project:
         if prebuild != '':
             cmd = 'cd %s/build && ./build.sh %s' %(self.code_path, prebuild)
             subprocess.run(cmd, shell=True)
-        cmd = 'cd %s/build && ./build.sh %s %s > build.log' %(self.code_path, self.name, module)
+        cmd = 'cd %s/build && ./build.sh %s %s' %(self.code_path, self.name, module)
+        print(cmd)
         subprocess.run(cmd, shell=True)
         end_time = time.time()
         self.compile_time = end_time- start_time
@@ -72,8 +73,8 @@ class Project:
         subprocess.run(cmd, shell=True)
 
         # Gather build log
-        cmd = 'cd %s/ && mv build.log %s'  %(self.code_path, release_dir)
-        subprocess.run(cmd, shell=True)
+        #cmd = 'cd %s/ && mv build.log %s'  %(self.code_path, release_dir)
+        #subprocess.run(cmd, shell=True)
 
         # Gather snapshot
         cmd = 'cd %s/ && repo manifest -r -o %s.xml'  %(self.code_path, date)

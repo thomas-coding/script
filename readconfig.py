@@ -7,7 +7,7 @@
 import os
 import configparser
 
-current_dir = os.path.abspath('.')
+current_dir = os.path.split(os.path.realpath(__file__))[0]
 configpath = os.path.join(current_dir, "config.ini")
 
 class ReadConfig:
